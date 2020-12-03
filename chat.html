@@ -1,0 +1,183 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <style>
+        .chatt{
+            position: relative;
+            margin-bottom:-10%;
+            margin-left:90%;
+
+        }
+        .displayarea{
+            width:99.5%;
+            height: 80%;
+            background-color: white;
+            color: black;
+            border-top: 4px solid black;  
+            border-left: 4px solid black;  
+            border-right: 4px solid black;     
+            border-bottom: 1px solid black;    
+            overflow: scroll;    
+        }
+        .personalchat{   
+            width:34.5%;
+            height:100%;
+            border-left: 4px solid black;
+            border-radius: 2%;
+            float: right;
+            display: none;
+        }
+        .Msg{
+            font-size: x-large;
+            font-family: serif;
+            margin-top:1%;
+            margin-left:0.75%;
+            height: 10%;
+            width: 85%;
+            height: fixed;
+            border: 4px solid black;
+            background-color: whitesmoke;
+            text-align: left;
+        }
+        .image{
+            float: left;
+            height:14.5%;
+            width:7.25%;
+            border: 4px solid black;
+            border-radius: 50%;
+            background-image: url("https://image.flaticon.com/icons/png/512/1590/1590898.png");
+            background-size: 105px;
+        }
+        .send1{           
+            float: right;
+            margin-top:1%;
+            height:10.5%;
+            width:5.5%;
+            border: 4px solid black;
+            border-radius: 50%;
+            margin-right: 0.1px;
+            background-image: url("https://cdn.pixabay.com/photo/2018/02/04/01/54/paper-planes-3128885_1280.png");
+            background-size: cover;
+        } 
+        img{
+            width:150px;
+            height:100px;
+        }
+.top{
+    
+    margin-left:45%;
+    display: none;
+
+}
+    </style>
+      <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-database.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDKPwz6xjyCUN3r2k0EkbFRGCZCsU0FvZY",
+    authDomain: "the-blog-fest.firebaseapp.com",
+    databaseURL: "https://the-blog-fest.firebaseio.com",
+    projectId: "the-blog-fest",
+    storageBucket: "the-blog-fest.appspot.com",
+    messagingSenderId: "949240382353",
+    appId: "1:949240382353:web:08a4976ce1fc61fefd9030"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+</head>
+<body>
+    <div>
+
+    <div class="displayarea" id="displayarea">
+
+        <div class="personalchat" id='personalchat'>
+      
+        </div>
+    </div>
+    <button class="top" onclick="topFunction()" id="top">Go to Top</button>
+
+    <button class="image" id='image' onclick="sendImage()"></button>
+       <input type="text" class="Msg" id='Msg' placeholder="Your message ...">
+   
+    <button class="send1" onclick="send(document.getElementById('Msg').value)"></button>
+    
+   </div>
+   
+    <script type="text/javascript">
+    var database = firebase.database();
+     function send(msg){
+         var naam = window.location.search;
+         if(msg!=="" &&msg!==" "){
+         database.ref('Chat_Section/Chats/Chat').on('value',function(data){
+             prev=data.val();
+         })
+         database.ref('Chat_Section/Chats').set({
+             Chat:prev+naam.replace("?","")+": "+msg+"<br>"+"<br>"
+         })
+       document.getElementById('Msg').value="";
+        }
+        else{
+            alert("Write something to send ...")
+        }
+     }
+     setInterval(function(){
+     database.ref('Chat_Section/Chats/Chat').on('value',function(data){
+        document.getElementById("displayarea").innerHTML=data.val();
+     })
+     },250)
+    function dispAll(){
+        document.getElementById('personalchat').style.display="block";
+    }
+   
+function imageExists(url, callback) {
+  var img = new Image();
+  img.onload = function() { callback(true); };
+  img.onerror = function() { callback(false); };
+  img.src = url;
+}
+    function sendImage(){
+       
+        var imageSrc = prompt("Enter Image Url: ");
+        
+imageExists(imageSrc, function(exists) {
+ 
+  if(exists===true){
+      var naam0=window.location.search;
+    database.ref('Chat_Section/Chats/Chat').on('value',function(data){
+             prev=data.val();
+         })
+         database.ref('Chat_Section/Chats').set({
+             Chat:prev+naam0.replace("?","")+": <img src = "+imageSrc+">"+"<br>"+"<br>"
+         })
+  }
+  else{
+      alert("Your Image Url Doesn't exist");
+  }
+});
+    }
+    var mybutton;
+document.getElementById("displayarea").onscroll = function() {scrollFunction()};
+mybutton=document.getElementById("top");
+function scrollFunction() {
+  if (document.getElementById("displayarea").scrollTop > 20 || document.getElementById("displayarea").scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+function topFunction() {
+    document.getElementById("displayarea").scrollTop = 0;
+    document.getElementById("displayarea").scrollTop = 0;
+}
+    </script>
+</body>
+</html>

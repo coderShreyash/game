@@ -1,0 +1,80 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            margin-left:40%;
+            margin-top: 5%;
+         
+        }
+        label,input{
+            font-size: large;
+            font-weight: bold;
+            height: 5%;
+        }
+        label{
+            font-size: x-large;
+        }
+        .text{
+            font-size: xx-large;
+            font-weight: bold;
+            margin-bottom:10% ;
+            margin-left: 5%;
+        }
+        input{
+            margin-bottom: 5%;
+            border: 2px solid black;
+        }
+        button{
+            width:256px;
+            height: 5%;
+            font-size: x-large;
+            font-weight: bold;
+            border: 1px solid black;
+            background:linear-gradient(90deg,cyan,rgb(49, 49, 248),blue,indigo);
+        }
+        button:hover{
+            background:linear-gradient(90deg,indigo,blue,rgb(49, 49, 248),cyan);
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="text">Sign Up Form</div>
+
+            <form id="myForm" onsubmit="setCookie()">
+                <div class="data ss-item-required">
+                    <label for="name">Name: </label><br>
+                <input autocomplete=none type="text" name="name" id="name" placeholder="Your Name" required>
+                
+                </div>
+                <div class="data ss-item-required">       
+                    <label for="age">Age: </label><br>
+                    <input type="number" name="age" id="age" placeholder="Your Age" required>
+                   
+                </div>
+                <div class="data ss-item-required">
+                    <label for="pass">Password: </label><br>
+                    <input type="password" name="pass" id="pass" placeholder="Create Password" required>
+                  
+                </div>
+               
+               <div class="btn" onclick="submitData()">
+                <div class="inner"></div>
+                <button type="submit">Sign up</button>
+            </div>
+            </form>
+    
+        </div>
+        <script>
+        function setCookie() {
+            var cnameval=document.getElementById("name").value;
+            var cpassval=document.getElementById("pass").value;
+            window.open("index.html"+"?"+cnameval)
+          }
+        </script>
+</body>
+</html>

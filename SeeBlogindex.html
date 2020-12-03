@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        div{
+            width:100%;
+            background: linear-gradient(90deg,gray,whitesmoke,white,whitesmoke,gray);
+            height: 80px;
+            margin-bottom: -25px;
+            cursor: pointer;
+        }
+        .con{
+            width:100%;
+            background: black;
+            cursor: pointer;
+
+        }
+    </style>
+</head>
+<body>
+
+    <div id="con"></div>
+    
+    <script>
+        
+        
+        function gu(){
+            document.getElementById("bod").click();
+        }
+        function fose(effort){
+            window.open("SeeBlog.html?"+effort)
+        
+    }
+     setInterval(function(){
+         var xz=true;
+         var author="Anonymus";
+        document.getElementById("con").innerHTML="";
+        for(var a=num;a>0;a--){
+            database.ref('Blog?'+a+'/Allowed').on('value',function(data){xz=data.val()});  
+            database.ref('Blog?'+a+'/Aauthor').on('value',function(data){author=data.val()});  
+            if(xz===true){          
+             database.ref('Blog?'+a+'/Title').on('value',function(data){
+                 document.getElementById("con").innerHTML+="<div "+"id=b"+a+" onclick="+"fose("+a+")"+">"+data.val()+"By ~"+author.replace("?","")+"</div><br>";
+             })
+            }
+        }
+     },500)
+          
+       </script>
+         <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-database.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDKPwz6xjyCUN3r2k0EkbFRGCZCsU0FvZY",
+    authDomain: "the-blog-fest.firebaseapp.com",
+    databaseURL: "https://the-blog-fest.firebaseio.com",
+    projectId: "the-blog-fest",
+    storageBucket: "the-blog-fest.appspot.com",
+    messagingSenderId: "949240382353",
+    appId: "1:949240382353:web:08a4976ce1fc61fefd9030"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+<script>
+    var database=firebase.database();
+    var num;
+    database.ref('Blogging/Blogs').on('value',function(data){
+        num=data.val();
+    })
+    
+</script>
+</body>
+</html>
